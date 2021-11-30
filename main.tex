@@ -1,27 +1,70 @@
 \documentclass{article}
+\usepackage{amsmath}
 
 \title{Math22}
 \date{Fall 2021}
-\author{Ethan \\ etran@college.harvard.edu \and Andy \\ andy_li@college.harvard.edu}
+\author{Ethan \\ \texttt{etran@college.harvard.edu} \and Andy \\ \texttt{andy\_li@college.harvard.edu}}
 
 \begin{document}
+
+\maketitle
 
 \pagebreak
 
 \tableofcontents
 
 \section{Overview}
+Networks are a common graph structure in mathematics with vertices connected by edges, usually with the purpose of visualizing relationships between objects.
+The use of network graphs have been extended into other fields, and this project will focus on the use of networks in sociology.
+Here, networks have nodes that represent agents, which are connected by links (edges) that signify some social interaction or tie between the two agents.
+Further detail comes in the form of node degrees (number of connections) and strength (weight of connections) to represent networks (Porter, 1082). 
+ 
+A large component of networks lies in communities, which are densely connected subgroups of nodes that in the context of sociology represent extensive human interaction.
+These communities are discovered through community detection algorithms, which have important real world uses such connecting people with common interests over social media
+Even with the wonderous applications of community networks in sociology, they are still built on the fundamentals of graphs which require linear algebra for construction. 
+Thus begs the guiding question:
+How does linear algebra assist in community detection and community network graphing?
+
+\section{Graph Theory}
+
+\subsection{What is Graph Theory}
+
+\subsection{Adjacency Matrices}
+We will define adjacency matrices, which are algebraic representations of graphs in Graph Theory (Biggs 7).
+
+\textbf{Definition 1:} The adjacency matrix of a network is the $n x n$ matrix $A$ whose entries $a_{ij}$ are given by
+\[   
+a_{ij} = 
+     \begin{cases}
+       1 & \text{if } v_i \text{ and } v_j \text{ are adjacent} \\
+       0 & \text{otherwise} \\
+     \end{cases}
+\]
+
+From these matrices, graphs can be easily constructed 
 
 \section{Community Detection}
 
 \subsection{What is Community Detection?}
 
-\section{Graph Theory}
+Community Detection is the process by which researchers can identify groups within a network in which individuals' membership in particular groups are yet to be ascertained. 
+Community Detection is performed by researchers to map out the relationships between isolated nodes, members, or objects within the community. 
+By gathering and ordering network members by the strength of their relationships to each other one can discover communities\textemdash otherwise known as groups, clusters, cohesive subgroups, or modules. 
+This information can yield valuable insights. For example, community detection can reveal the key figures and leaders within a group, around which other members gather.
+The results of community detection are often represented through graphs of nodes and edges, and are generated through the application of algorithms to networks as represented by adjacency matrices.
 
-\subsubsection{What is Graph Theory}
 
-That shit wack yaheard?
+\subsection{Lin Alg}
 
-\section{}
+\section{Real World Application}
+In this simple example, we have interviewed five people about who they eat with most frequently. They will rank their peers from 1-4, 
+One the five by five matrix, zeroes or ones on the diagonal depending on if a person eats with themselves or not
+Strength of connection given by ranking that people say (how often they eat with someone)
+
+\section*{References}
+“Communities in Networks” by Mason A. Porter, Jukka-Pekka Onnela, and Peter J. Mucha
+%http://ai-nlp.info.uniroma2.it/basili/didattica/BigData/005_Intro_to_CommunityDetection.pdf
+%https://www.nature.com/articles/s41598-018-23932-z
+%https://superoles.files.wordpress.com/2015/09/n-biggs-algebraic-graph-theory-1993.pdf
 
 \end{document}

@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Overview}{2}{}%
+\contentsline {section}{\numberline {2}Graph Theory}{2}{}%
+\contentsline {subsection}{\numberline {2.1}What is Graph Theory}{2}{}%
+\contentsline {subsection}{\numberline {2.2}Adjacency Matrices}{2}{}%
+\contentsline {section}{\numberline {3}Community Detection}{3}{}%
+\contentsline {subsection}{\numberline {3.1}What is Community Detection?}{3}{}%
+\contentsline {subsection}{\numberline {3.2}Lin Alg}{3}{}%
+\contentsline {section}{\numberline {4}Real World Application}{3}{}%
