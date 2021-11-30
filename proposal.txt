@@ -1,0 +1,24 @@
+The topic that we have found the most interest in is in the analysis and graphing of community networks. 
+More specifically, we intend to study and expound on how specifically community detection is performed and 
+how these processes involve linear algebra. Community detection is a fascinating application of mathematical 
+graphing techniques with uses in the observation of social networking apps, as is done by companies like 
+Facebook for the sake of analytics, and in the study of more organic structures, such as protein interaction 
+networks or even real world institutions. 
+One notable and interesting example of graphing community networks that we will apply our learnings to is 
+the network of crafting recipes in the popular game Minecraft. In this example from Reddit, nodes present 
+crafting ingredients and edges represent two recipes sharing the same two crafting ingredients. Thus, 
+following the properties of community network graphs,  ingredients that are used in many recipes 
+(and thus have many edges) have a larger node size compared to ingredients that aren’t as common 
+for crafting recipes.
+
+
+
+We have identified some useful sources regarding this project. The first is “Communities in Networks” by 
+Mason A. Porter, Jukka-Pekka Onnela, and Peter J. Mucha, which will provide an overview of community detection,
+its uses in various fields, and how network graphs are made. This overview is bolstered by “Social Media Analysis 
+and Recommending [sic] Systems: An Introduction to Community Detection” by Lei Tang and Huan Liu, Morgan and Claypool.
+The community network graphs are built on linear algebra principles, specifically adjacency matrices used to 
+represent unordered, finite graphs. In each of these adjacency matrices, the elements of the matrix indicate 
+whether pairs of nodes are adjacent (or connected) or not in the graph. The adjacency matrix can be used to 
+calculate the strength of connections in the network, and is a good example of how linear algebra can be 
+applied to visualize graphs.
