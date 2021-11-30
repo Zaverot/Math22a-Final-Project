@@ -30,18 +30,51 @@ How does linear algebra assist in community detection and community network grap
 \subsection{What is Graph Theory}
 
 \subsection{Adjacency Matrices}
-We will define adjacency matrices, which are algebraic representations of graphs in Graph Theory (Biggs 7).
+We will define adjacency matrices, which are common algebraic representations of graphs in Graph Theory (Biggs 7).
 
 \textbf{Definition 1:} The adjacency matrix of a network is the $n x n$ matrix $A$ whose entries $a_{ij}$ are given by
 \[   
 a_{ij} = 
      \begin{cases}
-       1 & \text{if } v_i \text{ and } v_j \text{ are adjacent} \\
+       1 & \text{if } v_i \text{ and } v_j \text{ are adjacent, or connected by an edge from $i$ to $j$} \\
        0 & \text{otherwise} \\
      \end{cases}
 \]
 
-From these matrices, graphs can be easily constructed 
+\bigskip
+
+An example adjacency matrix is shown here:
+
+\begin{bmatrix}
+0 & 1 & 1\\
+1 & 0 & 1\\
+1 $ 1 $ 0
+\end{bmatrix}
+
+\bigskip
+
+Adjacency matrices can be easily used to construct graphs (both directed and undirected) and vice versa.
+We can note a few characteristics of adjacency matrices. Firstly, for undirected graphs, the adjacency matrix will be symmetric. 
+This is because if two nodes are connected, then both $a_{ij}$ entries in the matrix will be $1$ as direction doesn't matter, and $0$ otherwise if they are not connected.
+On the other hand, for directed graphs, adjacency matrices are not necessarily symmetric. 
+As the $a_{ij}$ entry will only be $1$ if there exists an edge from $i$ to $j$, if there is not a edge going in reverse then the "symmetric" value in the matrix will have a value of $0$.
+Usually, the diagonal values of an adjacency matrix will all have the value $0$, as most graphs will not have nodes that are connected with themselves.
+
+Adjacency matrices become more complicated in the environment of community networks. 
+Instead of using $1$ to represent the presence of a edge between two nodes in the matrix, the nonzero value can be greater or less than $1$ to represent the weight of edge.
+In community networks, this weight represents how close two agents relate to or interact with each other, and is critical in community dtection algorithms, which will be elaborated on below (Porter 1086).    
+
+\bigskip
+
+An example adjacency matrix is shown here:
+
+\begin{bmatrix}
+0 & 3 & 2\\
+1 & 0 & 1\\
+2 $ 3 $ 0
+\end{bmatrix}
+
+\bigskip
 
 \section{Community Detection}
 
@@ -53,10 +86,12 @@ By gathering and ordering network members by the strength of their relationships
 This information can yield valuable insights. For example, community detection can reveal the key figures and leaders within a group, around which other members gather.
 The results of community detection are often represented through graphs of nodes and edges, and are generated through the application of algorithms to networks as represented by adjacency matrices.
 
+\subsection{CD Algorithm}
+see louvain community detection at towardsdatascience link below
 
 \subsection{Lin Alg}
 
-\section{Real World Application}
+\section{Sample Community Network}
 In this simple example, we have interviewed five people about who they eat with most frequently. They will rank their peers from 1-4, 
 One the five by five matrix, zeroes or ones on the diagonal depending on if a person eats with themselves or not
 Strength of connection given by ranking that people say (how often they eat with someone)
@@ -64,7 +99,10 @@ Strength of connection given by ranking that people say (how often they eat with
 \section*{References}
 “Communities in Networks” by Mason A. Porter, Jukka-Pekka Onnela, and Peter J. Mucha
 %http://ai-nlp.info.uniroma2.it/basili/didattica/BigData/005_Intro_to_CommunityDetection.pdf
+%finding community detection https://www.sciencedirect.com/science/article/pii/S1568494616300242
 %https://www.nature.com/articles/s41598-018-23932-z
+%https://towardsdatascience.com/community-detection-algorithms-9bd8951e7dae
 %https://superoles.files.wordpress.com/2015/09/n-biggs-algebraic-graph-theory-1993.pdf
+%https://stackoverflow.com/questions/9471906/what-are-the-differences-between-community-detection-algorithms-in-igraph
 
 \end{document}
