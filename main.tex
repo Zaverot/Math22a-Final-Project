@@ -3,7 +3,7 @@
 
 \title{Math22 Final Project}
 \date{Fall 2021}
-\author{Ethan Tran\\ \texttt{etran@college.harvard.edu} \and Andy Li\\ \texttt{andy\_li@college.harvard.edu}}
+\author{Andy Li\\ \texttt{andy\_li@college.harvard.edu} \and Ethan Tran\\ \texttt{etran@college.harvard.edu}}
 
 \begin{document}
 
@@ -67,7 +67,7 @@ Usually, the diagonal values of an adjacency matrix will all have the value $0$,
 
 Adjacency matrices become more complicated in the environment of community networks. 
 Instead of using $1$ to represent the presence of a edge between two nodes in the matrix, the nonzero value can be greater or less than $1$ to represent the weight of edge.
-In community networks, this weight represents how close two agents relate to or interact with each other, and is critical in community dtection algorithms, which will be elaborated on below (Porter 1086).    
+In community networks, this weight represents how close two agents relate to or interact with each other, and is critical in community detection algorithms, which will be elaborated on below (Porter 1086).    
 
 \bigskip
 
@@ -94,7 +94,9 @@ This information can yield valuable insights. For example, community detection c
 The results of community detection are often represented through graphs of nodes and edges, and are generated through the application of algorithms to networks as represented by adjacency matrices.
 
 \subsection{CD Algorithm}
-There are many different algorithms used for community detection on graphs, each with their own approaches and required data structures. For the purposes of this project, we will focus on an algorithm that utilizes the eigenvectors of matrices. Specifically, this algorithm tries to find densely connected subgraphs in a graph by calculating the leading non-negative eigenvector of the modularity matrix of the graph (Chandal, Kabre, Aggarwal 66). 
+There are many different algorithms used for community detection on graphs, each with their own approaches and required data structures. 
+For the purposes of this project, we will focus on an algorithm that utilizes the eigenvectors of matrices. 
+Specifically, this algorithm tries to find densely connected subgraphs in a graph by calculating the leading non-negative eigenvector of the modularity matrix of the graph (Chandal, Kabre, Aggarwal 66). 
 
 \bigskip 
 
@@ -102,12 +104,18 @@ There are many different algorithms used for community detection on graphs, each
 
 
 \section{Sample Community Network}
-In this simple example, we have interviewed five people about who they eat with most frequently. They will rank their peers from 1-4, 
-One the five by five matrix, zeroes or ones on the diagonal depending on if a person eats with themselves or not
-Strength of connection given by ranking that people say (how often they eat with someone)
+In this simple example, we have interviewed five people about who they eat with most frequently. 
+They will rank their peers from 1-4, with 1 representing the person they would be least likely to eat with and 4 representing the person they would most be likely to eat with. 
+On a five by five matrix, with zeroes or ones on the diagonal depending on if a person eats with themselves or not, we will convert these values to an adjacency matrix.
+This matrix will display the strength of connection according to how often they eat with someone.
+We will proceed to generate a directed graph with the use of this data and the CD Algorithm.
 
+\pagebreak
 \section*{References}
-“Communities in Networks” by Mason A. Porter, Jukka-Pekka Onnela, and Peter J. Mucha
+
+\bigskip
+
+\noindent “Communities in Networks” by Mason A. Porter, Jukka-Pekka Onnela, and Peter J. Mucha
 
 \bigskip 
 
