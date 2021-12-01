@@ -1,9 +1,9 @@
 \documentclass{article}
 \usepackage{amsmath}
 
-\title{Math22}
+\title{Math22 Final Project}
 \date{Fall 2021}
-\author{Ethan \\ \texttt{etran@college.harvard.edu} \and Andy \\ \texttt{andy\_li@college.harvard.edu}}
+\author{Ethan Tran\\ \texttt{etran@college.harvard.edu} \and Andy Li\\ \texttt{andy\_li@college.harvard.edu}}
 
 \begin{document}
 
@@ -28,9 +28,12 @@ How does linear algebra assist in community detection and community network grap
 \section{Graph Theory}
 
 \subsection{What is Graph Theory}
+Graph theory is the study of graphs, which are mathematical structures composed of nodes and edges. In the most common definition of a graph $G(V, E)$, there is a set $V$ of nodes/vertices/points, and set of edges $E$ such that \\$E \subseteq \{\{x, y\} | x, y \in V \text{ and } x \neq y\}$ (Bender and Williamson 7). Various modifications can be applied to this definition to create different types of graphs. For example, directed graphs, in which edges have orientation to and from certain nodes, have different definitions of edges $E$ compared to undirected graphs, which follow the definition above.   
 
 \subsection{Adjacency Matrices}
 We will define adjacency matrices, which are common algebraic representations of graphs in Graph Theory (Biggs 7).
+
+\bigskip
 
 \textbf{Definition 1:} The adjacency matrix of a network is the $n x n$ matrix $A$ whose entries $a_{ij}$ are given by
 \[   
@@ -45,10 +48,12 @@ a_{ij} =
 
 An example adjacency matrix is shown here:
 
+\bigskip
+
 \begin{bmatrix}
 0 & 1 & 1\\
 1 & 0 & 1\\
-1 $ 1 $ 0
+1 & 1 & 0
 \end{bmatrix}
 
 \bigskip
@@ -68,10 +73,12 @@ In community networks, this weight represents how close two agents relate to or 
 
 An example adjacency matrix is shown here:
 
+\bigskip 
+
 \begin{bmatrix}
 0 & 3 & 2\\
 1 & 0 & 1\\
-2 $ 3 $ 0
+2 & 3 & 0
 \end{bmatrix}
 
 \bigskip
@@ -87,9 +94,12 @@ This information can yield valuable insights. For example, community detection c
 The results of community detection are often represented through graphs of nodes and edges, and are generated through the application of algorithms to networks as represented by adjacency matrices.
 
 \subsection{CD Algorithm}
-see louvain community detection at towardsdatascience link below
+There are many different algorithms used for community detection on graphs, each with their own approaches and required data structures. For the purposes of this project, we will focus on an algorithm that utilizes the eigenvectors of matrices. Specifically, this algorithm tries to find densely connected subgraphs in a graph by calculating the leading non-negative eigenvector of the modularity matrix of the graph (Chandal, Kabre, Aggarwal 66). 
 
-\subsection{Lin Alg}
+\bigskip 
+
+\noindent This algorithm focuses on modularity, which is a measure the strength of division of a network into modules (also called groups, clusters or communities). The modularity matrix of the graph is an important aspect of this algorithm to detect communities. 
+
 
 \section{Sample Community Network}
 In this simple example, we have interviewed five people about who they eat with most frequently. They will rank their peers from 1-4, 
@@ -98,6 +108,29 @@ Strength of connection given by ranking that people say (how often they eat with
 
 \section*{References}
 “Communities in Networks” by Mason A. Porter, Jukka-Pekka Onnela, and Peter J. Mucha
+
+\bigskip 
+
+\noindent "An Introduction to Community Detection" by Lei Tang and Huan Liu
+
+\bigskip 
+
+\noindent "Community Detection Algorithms" by Thamindu Dilshan Jayawickrama
+
+\bigskip 
+
+\noindent "Algebraic Graph Theory" by Norman Biggs
+
+\bigskip 
+
+\noindent "Lists, Decisions and Graphs. With an Introduction to Probability" by Edward A. Bender and S. Gill Williamson
+
+\bigskip 
+
+\noindent "Community Structure Detection" by Amar Chandole, Ameya Kabre, and Atishay Aggarwal
+
+%http://web.cs.ucla.edu/~yzsun/classes/2017Winter_CS249/Slides/Clustering1.pdf
+
 %http://ai-nlp.info.uniroma2.it/basili/didattica/BigData/005_Intro_to_CommunityDetection.pdf
 %finding community detection https://www.sciencedirect.com/science/article/pii/S1568494616300242
 %https://www.nature.com/articles/s41598-018-23932-z
