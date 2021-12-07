@@ -1,5 +1,7 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
 
 \title{Math22 Final Project}
 \date{Fall 2021}
@@ -21,25 +23,73 @@ Further detail comes in the form of node degrees (number of connections) and str
  
 A large component of networks lies in communities, which are densely connected subgroups of nodes that in the context of sociology represent extensive human interaction.
 These communities are discovered through community detection algorithms, which have important real world uses such connecting people with common interests over social media
-Even with the wonderous applications of community networks in sociology, they are still built on the fundamentals of graphs which require linear algebra for construction. 
+Even with the wonderous applications of community networks in sociology, they are still built on the fundamentals of graphs which utilize linear algebra for construction. 
 Thus begs the guiding question:
 How does linear algebra assist in community detection and community network graphing?
 
+\section{Network Science}
+
+\subsection{What is Network Science?}
+The academic study of networks is often referred to as \textbf{Network Science}. This field was born from what is known as the "Small World Problem,"
+discussed in such landmark papers as Stanley Milgram's 1967 thought experiment of the same name. This problem is best represented by the following question:
+"Given any two people in the world, person X and person Z, how many intermediate acquaintance links are required before X and Z are connected?" (Milgram, 1967). This experiment has been
+pondered extensively, and even carried out by multiple universities, as can be seen in Columbia University's "An Experimental Study of Search in Global Social Networks" (Ribiero 2020). In this experiment,
+searchers tasked around 60,000 individuals with contacting one of 18 individuals from 13 different countries by forwarding a single email to acquaintances. Analyzing the path these emails took,
+these Columbia researchers were able to map out an extensive network of interconnected individuals. This is Network Science\textemdash the science of identifying the structure of networks and extrapolating information
+from them.
+
+\subsection{What is a Network?}
+A \textbf{Network} is any set of objects or concepts connected by some relationship or interaction. This profoundly vague definition is best expounded on through examples. In the social sciences, a network
+might be a group of individuals that are related by family, friendship, work, location, academic co-authorship or any other social bond. In biology, the interconnected parts of the brain or even the set of proteins responsible for metabolism are networks. 
+The hierarchy of objects and classes in an object-oriented programming project is a network. Even words can be conceived of as a network when connected by meaning, part of speech, or pronunciation. As can be seen, a network is an abstract tool to envision 
+interconnected groups of objects, individuals, and even ideas.   
+
+\subsection{What Can Networks Teach Us?}
+The analysis of networks can yield valuable for a multitude of fields. Studying networks can help identify the organizational principles behind them\textemdash patterns, properties, etc.. These organizational principles can form the basis for statistical models
+that allow for a better understanding of the behaviors and relationships present in the network. These models essentially map out expected relationships and behaviors for a given group, enabling easy identification of outlier occurences. Finally, most pertinent to this paper,
+networks can be represented with mathematical \textbf{Graph Theory} and analyzed with a suite of algorithms utilized for \textbf{Community Detection}.
+
 \section{Graph Theory}
 
-\subsection{What is Graph Theory}
-Graph theory is the study of graphs, which are mathematical structures composed of nodes and edges. In the most common definition of a graph $G(V, E)$, there is a set $V$ of nodes/vertices/points, and set of edges $E$ such that \\$E \subseteq \{\{x, y\} | x, y \in V \text{ and } x \neq y\}$ (Bender and Williamson 7). Various modifications can be applied to this definition to create different types of graphs. For example, directed graphs, in which edges have orientation to and from certain nodes, have different definitions of edges $E$ compared to undirected graphs, which follow the definition above.   
+\subsection{What is Graph Theory?}
+Graph theory is the study of \textbf{Graphs}, which are the  mathematical representations of the real systems referred to as "networks." Generally, graphs are composed of nodes, also known as vertexes, and edges.
+Nodes represent individual members of a network\textemdash people, roads, products, websites, objects in a piece of software, and so on and so forth. Edges represent the connections between them.
+Nodes and Edges can also have any combination of various attributes (Ribeiro 2020). Some examples for edges are:
 
-\subsection{Adjacency Matrices}
-We will define adjacency matrices, which are common algebraic representations of graphs in Graph Theory (Biggs 7).
+\bigskip
+\begin{description}
+  \item[\textbf{Weight}] - Duration of a phone call, distance of a road\dots
+  \item[\textbf{Ranking}] - Best Friend, Second Best Friend\dots
+  \item[\textbf{Type}] - Friend, Relative, Co-worker (Often represented with different edge colors)  
+\end{description}
 
 \bigskip
 
-\textbf{Definition 1:} The adjacency matrix of a network is the $n x n$ matrix $A$ whose entries $a_{ij}$ are given by
+\noindent Nodes can also have attributes such as:
+\bigskip
+\begin{description}
+  \item[\textbf{Type}] - Nationality, Age, Sex (Often represented with different node colors)
+\end{description}
+\bigskip
+In the most common definition of a graph $G(V, E)$, there is a set $V$ of nodes/vertices/points, and set of edges $E$ such that \\$E \subseteq \{\{x, y\} | x, y \in V \text{ and } x \neq y\}$ (Bender and Williamson 7). 
+Various modifications can be applied to this definition to create different types of graphs. 
+For example, directed graphs, in which edges have orientation to and from certain nodes, have different definitions of edges $E$ compared to undirected graphs, which follow the definition above. 
+The direction of edges in a directed graph can represent a variety of phenomenon. 
+For example, in a network graph of a road system, the direction of edges can indicate one-way and two-way access between two roads. If one was mapping phone calls between individuals, 
+the direction of edges can establish who is calling and who is receiving.  
+
+\subsection{Adjacency Matrices}
+We will define adjacency matrices, which are common algebraic representations of graphs in Graph Theory (Biggs 7).
+Recall from earlier that a graph $G$ has a set of vertices or nodes $V$, and a set of edges $E$ to connect them.
+These matrices show which nodes $v \in V$ are adjacent, or connected, to each other.
+
+\bigskip
+
+\textbf{Definition 1:} The adjacency matrix of a network is the $n \times n$ matrix $A$ whose entries $a_{ij}$ are given by
 \[   
 a_{ij} = 
      \begin{cases}
-       1 & \text{if } v_i \text{ and } v_j \text{ are adjacent, or connected by an edge from $i$ to $j$} \\
+       1 & \text{if node } v_i \text{ and node } v_j \text{ are adjacent, or connected by an edge} \\
        0 & \text{otherwise} \\
      \end{cases}
 \]
@@ -50,11 +100,54 @@ An example adjacency matrix is shown here:
 
 \bigskip
 
-\begin{bmatrix}
+\noindent\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.4]{"s3graph.pdf"}
+\captionof{figure}{A graph with three nodes}
+\label{fig:fig1}            
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\vspace{1.2cm}
+$\begin{bmatrix}
 0 & 1 & 1\\
 1 & 0 & 1\\
 1 & 1 & 0
-\end{bmatrix}
+\end{bmatrix}$
+\vspace{1.1cm}
+
+\captionof{figure}{Associated adjacency matrix}
+\label{fig:fig2}            
+\end{minipage}
+
+\bigskip
+
+Notice how all diagonal entries are $0$ as each node is not connected with itself, 
+and all non-diagonal entries are $1$ as each node is connected to every other node.
+A more complex example is shown below
+
+\bigskip
+
+\noindent\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.4]{s4graph.drawio.pdf}
+\captionof{figure}{A graph with four nodes}
+\label{fig:fig3}            
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\vspace{1cm}
+ $\begin{bmatrix}
+0 & 1 & 1 & 0\\
+1 & 0 & 0 & 1\\
+1 & 0 & 0 & 1\\
+0 & 1 & 1 & 0
+\end{bmatrix}$
+\vspace{0.88cm}
+
+\captionof{figure}{Associated adjacency matrix}
+\label{fig:fig4}            
+\end{minipage}
 
 \bigskip
 
@@ -71,15 +164,9 @@ In community networks, this weight represents how close two agents relate to or 
 
 \bigskip
 
-An example adjacency matrix is shown here:
+An example adjacency matrix along with its associated graph is shown here:
 
 \bigskip 
-
-\begin{bmatrix}
-0 & 3 & 2\\
-1 & 0 & 1\\
-2 & 3 & 0
-\end{bmatrix}
 
 \bigskip
 
@@ -87,7 +174,7 @@ An example adjacency matrix is shown here:
 
 \subsection{What is Community Detection?}
 
-Community Detection is the process by which researchers can identify groups within a network in which individuals' membership in particular groups are yet to be ascertained. 
+Community Detection is the process by which researchers can identify groups within a network.
 Community Detection is performed by researchers to map out the relationships between isolated nodes, members, or objects within the community. 
 By gathering and ordering network members by the strength of their relationships to each other one can discover communities\textemdash otherwise known as groups, clusters, cohesive subgroups, or modules. 
 This information can yield valuable insights. For example, community detection can reveal the key figures and leaders within a group, around which other members gather.
@@ -135,7 +222,21 @@ We will proceed to generate a directed graph with the use of this data and the C
 
 \bigskip 
 
-\noindent "Community Structure Detection" by Amar Chandole, Ameya Kabre, and Atishay Aggarwal
+\noindent "Community Structure Detection" by Amar Chandole, Ameya Kabre, and \linebreak Atishay Aggarwal
+
+\bigskip
+
+\noindent "An Introduction to Network Science" by Pedro Ribeiro
+
+\bigskip
+
+\noindent Milgram, S. "The small world problem." Psychol. Today 2, 60–67 (1967)
+
+\bigskip
+
+\noindent "Two Decades of Network Science: as seen through the co-authorship network of network scientists" by Roland Molontay and Marcell Nagy
+
+
 
 %http://web.cs.ucla.edu/~yzsun/classes/2017Winter_CS249/Slides/Clustering1.pdf
 
@@ -145,5 +246,8 @@ We will proceed to generate a directed graph with the use of this data and the C
 %https://towardsdatascience.com/community-detection-algorithms-9bd8951e7dae
 %https://superoles.files.wordpress.com/2015/09/n-biggs-algebraic-graph-theory-1993.pdf
 %https://stackoverflow.com/questions/9471906/what-are-the-differences-between-community-detection-algorithms-in-igraph
+%https://www.dcc.fc.up.pt/~pribeiro/aulas/ns2021/1_introduction.pdf
+%http://files.diario-de-bordo-redes-conecti.webnode.com/200000013-211982212c/AN%20EXPERIMENTAL%20STUDY%20by%20Travers%20and%20Milgram.pdf
+%https://arxiv.org/pdf/1908.08478.pdf
 
 \end{document}
