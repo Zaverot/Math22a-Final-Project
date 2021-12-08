@@ -34,7 +34,7 @@ Imagine that we have gathered an assortment of Harvard students, and we want to 
 
 How might we answer these questions? One approach would be to analyze this group of students as a network.
 
-\section*{Overview}
+\section{Overview}
 Networks are a common graph structure in mathematics with vertices connected by edges, usually with the purpose of visualizing relationships between objects.
 The use of network graphs have been extended into other fields, and this project will focus on the use of networks in sociology.
 Here, networks have nodes that represent agents, which are connected by links (edges) that signify some social interaction or tie between the two agents.
@@ -46,9 +46,9 @@ Even with the wonderous applications of community networks in sociology, they ar
 Thus begs the guiding question:
 How does linear algebra assist in community detection and community network graphing?
 
-\section*{Network Science}
+\section{Network Science}
 
-\subsection*{What is Network Science?}
+\subsection{What is Network Science?}
 The academic study of networks is often referred to as \textbf{Network Science}. This field was born from what is known as the "Small World Problem,"
 discussed in such landmark papers as Stanley Milgram's 1967 thought experiment of the same name. This problem is best represented by the following question:
 "Given any two people in the world, person X and person Z, how many intermediate acquaintance links are required before X and Z are connected?" (Milgram, 1967). This experiment has been
@@ -57,7 +57,7 @@ searchers tasked around 60,000 individuals with contacting one of 18 individuals
 these Columbia researchers were able to map out an extensive network of interconnected individuals. This is Network Science\textemdash the science of identifying the structure of networks and extrapolating information
 from them.
 
-\subsection*{What is a Network?}
+\subsection{What is a Network?}
 A \textbf{Network} is any set of objects or concepts connected by some relationship or interaction. 
 This profoundly vague definition is best expounded on through examples. In the social sciences, a network might be a group of individuals that are related by family, friendship, work, location, academic co-authorship or any other social bond. 
 In biology, the interconnected parts of the brain or even the set of proteins responsible for metabolism are networks. 
@@ -65,14 +65,14 @@ The hierarchy of objects and classes in an object-oriented programming project i
 Even words can be conceived of as a network when connected by meaning, part of speech, or pronunciation. As can be seen, a network is an abstract tool to envision 
 interconnected groups of objects, individuals, and even ideas.   
 
-\subsection*{What Can Networks Teach Us?}
+\subsection{What Can Networks Teach Us?}
 The analysis of networks can yield valuable for a multitude of fields. Studying networks can help identify the organizational principles behind them\textemdash patterns, properties, etc.. These organizational principles can form the basis for statistical models
 that allow for a better understanding of the behaviors and relationships present in the network. These models essentially map out expected relationships and behaviors for a given group, enabling easy identification of outlier occurences. Finally, most pertinent to this paper,
 networks can be represented with mathematical \textbf{Graph Theory} and analyzed with a suite of algorithms utilized for \textbf{Community Detection}.
 
-\section*{Graph Theory}
+\section{Graph Theory}
 
-\subsection*{What is Graph Theory?}
+\subsection{What is Graph Theory?}
 Graph theory is the study of \textbf{Graphs}, which are the mathematical representations of the real systems referred to as "networks." A more formal definition is given below:
 
 \bigskip
@@ -112,7 +112,7 @@ Additionally, there is a set of terms used to describe the number of edges origi
 The degree can be further separated into \textbf{outdegree}, the number of edges originating from the node, and \textbf{indegree},
 the number of edges that terminate at the node.
 
-\subsection*{Adjacency Matrices}
+\subsection{Adjacency Matrices}
 We will define adjacency matrices, which are common algebraic representations of graphs in Graph Theory (Biggs 7).
 Recall from earlier that a graph $G$ has a set of vertices or nodes $V$, and a set of edges $E$ to connect them.
 These matrices show which nodes $v \in V$ are adjacent, or connected, to each other.
@@ -207,7 +207,7 @@ Although these modifications are significant to real-world studies, they are bey
 \bigskip 
 
 
-\subsection*{Degree Matrices}
+\subsection{Degree Matrices}
 
 \bigskip
 
@@ -307,9 +307,9 @@ Assume that we have some network with corresponding adjacency matrix $A$. By def
 
 \bigskip 
 
-\section*{Community Detection}
+\section{Community Detection}
 
-\subsection*{What is Community Detection?}
+\subsection{What is Community Detection?}
 
 Community Detection is the process by which researchers can identify groups within a network in which individuals' membership in particular cliques are yet to be ascertained. 
 Community Detection is performed by researchers to map out the relationships between isolated nodes, members, or objects within the community. 
@@ -317,7 +317,7 @@ By gathering and ordering network members by the strength of their relationships
 This information can yield valuable insights. For example, community detection can reveal the key figures and leaders within a group, around which other members gather.
 The results of community detection are often represented through graphs of nodes and edges, and are generated through the application of algorithms to networks as represented by adjacency matrices.
 
-\subsection*{Laplacian Matrices}
+\subsection{Laplacian Matrices}
 
 A \textbf{Laplacian Matrix} is a more complex graph representation  which is used to find many useful properties of the graph. More importantly, Laplacian graphs are critical to our community detection algorithm.
 
@@ -407,11 +407,11 @@ Thus, for the purposes of this paper, we will focus on a more effective communit
 
 \bigskip 
 
-\section*{Community Detection Algorithm based \\ on Modularity Matrices}
+\section{Community Detection Algorithm based \\ on Modularity Matrices}
 This algorithm tries to find densely connected subgraphs in a graph by calculating the leading non-negative eigenvector of the modularity matrix of the graph (Chandal, Kabre, Aggarwal 66). 
 
 
-\subsection*{The Modularity Matrix}
+\subsection{The Modularity Matrix}
 When finding communities within a given network, it is important to note that nodes within communities should have more links between themselves than the average number of edges between any two nodes in the network. 
 This is because communities, by definition, have nodes that are more intra-connected (within the community) rather than inter-connected (between communities).
 
@@ -460,7 +460,7 @@ which produces the most accurate communities.
 
 \bigskip
 
-\subsection*{Calculating Modularity}
+\subsection{Calculating Modularity}
 Given $P_{i,j}$, we can define a formula for modularity $Q$ below (Per source [things]):
 
 $$ Q = \dfrac{1}{2m}\sum_{ij} [A_{i,j} - P_{i,j}]\delta (g_i, g_j) $$ 
@@ -609,7 +609,7 @@ By recursively applying this new formula, we can now separate networks into more
 
 Putting these proofs and definitions together, we can finally form our community detection algorithm.
 
-\subsection*{The Community Detection Algorithm}
+\subsection{The Community Detection Algorithm}
 
 \begin{enumerate}
   \item Compute the altered modularity matrix $B^{(G)}$ of the community $G$; we know that $B^{(G)} = B$ if $G$ is the entire network
@@ -621,7 +621,7 @@ Putting these proofs and definitions together, we can finally form our community
   \item If $\Delta Q^{\prime} = 0$, then terminate the algorithm.
 \end{enumerate}
 
-\section*{Sample Community Network}
+\section{Sample Community Network}
 In this simple example, we have interviewed five people about who they eat with most frequently. 
 They will rank their peers from 1-4, with 1 representing the person they would be least likely to eat with and 4 representing the person they would most be likely to eat with. 
 On a five by five matrix, with zeroes or ones on the diagonal depending on if a person eats with themselves or not, we will convert these values to an adjacency matrix.
@@ -629,7 +629,7 @@ This matrix will display the strength of connection according to how often they 
 We will proceed to generate a directed graph with the use of this data and the CD Algorithm.
 
 \pagebreak
-\section*{References}
+\section{References}
 
 \bigskip
 
