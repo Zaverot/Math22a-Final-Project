@@ -2,6 +2,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{caption}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=\parindent,labelindent=\parindent}
 
 \title{Math22 Final Project}
 \date{Fall 2021}
@@ -14,6 +16,18 @@
 \pagebreak
 
 \tableofcontents
+
+\section{Motivating Problem}
+Imagine that we have gathered an assortment of Harvard students, and we want to identify two things: 
+\bigskip
+\begin{enumerate}
+  \item Who among this group of students are friends with each other?
+  \item Are there any smaller groups of students that are more friendly with each other than with those outside their smaller group? 
+        In other words, are there any friend groups or cliques?
+\end{enumerate}
+\bigskip
+
+How might we answer these questions? One approach would be to analyze this group of students as a network.
 
 \section{Overview}
 Networks are a common graph structure in mathematics with vertices connected by edges, usually with the purpose of visualizing relationships between objects.
@@ -39,9 +53,11 @@ these Columbia researchers were able to map out an extensive network of intercon
 from them.
 
 \subsection{What is a Network?}
-A \textbf{Network} is any set of objects or concepts connected by some relationship or interaction. This profoundly vague definition is best expounded on through examples. In the social sciences, a network
-might be a group of individuals that are related by family, friendship, work, location, academic co-authorship or any other social bond. In biology, the interconnected parts of the brain or even the set of proteins responsible for metabolism are networks. 
-The hierarchy of objects and classes in an object-oriented programming project is a network. Even words can be conceived of as a network when connected by meaning, part of speech, or pronunciation. As can be seen, a network is an abstract tool to envision 
+A \textbf{Network} is any set of objects or concepts connected by some relationship or interaction. 
+This profoundly vague definition is best expounded on through examples. In the social sciences, a network might be a group of individuals that are related by family, friendship, work, location, academic co-authorship or any other social bond. 
+In biology, the interconnected parts of the brain or even the set of proteins responsible for metabolism are networks. 
+The hierarchy of objects and classes in an object-oriented programming project is a network. 
+Even words can be conceived of as a network when connected by meaning, part of speech, or pronunciation. As can be seen, a network is an abstract tool to envision 
 interconnected groups of objects, individuals, and even ideas.   
 
 \subsection{What Can Networks Teach Us?}
@@ -52,12 +68,23 @@ networks can be represented with mathematical \textbf{Graph Theory} and analyzed
 \section{Graph Theory}
 
 \subsection{What is Graph Theory?}
-Graph theory is the study of \textbf{Graphs}, which are the  mathematical representations of the real systems referred to as "networks." Generally, graphs are composed of nodes, also known as vertexes, and edges.
-Nodes represent individual members of a network\textemdash people, roads, products, websites, objects in a piece of software, and so on and so forth. Edges represent the connections between them.
-Nodes and Edges can also have any combination of various attributes (Ribeiro 2020). Some examples for edges are:
+Graph theory is the study of \textbf{Graphs}, which are the mathematical representations of the real systems referred to as "networks." A more formal definition is given below:
 
 \bigskip
-\begin{description}
+
+\noindent \textbf{Definition 1:} A \textbf{graph} $G(V, E)$ has two parameters, $V$ and $E$. 
+
+\indent \begin{description}
+  \item[\textbf{$V$}] - The set of all vertices, also known as \textbf{nodes}. Nodes represent individual members of a network\textemdash people, roads, products, websites, objects in a piece of software\textemdash which will also be referred to in this paper as agents of a network.
+  \item[\textbf{$E$}] - The set of all \textbf{edges}, which connect vertices in the graph. 
+\end{description}
+
+\bigskip
+
+\noindent Nodes and Edges can also have any combination of various attributes (Ribeiro 2020). Some examples for edges are:
+
+\bigskip
+\indent \begin{description}
   \item[\textbf{Weight}] - Duration of a phone call, distance of a road\dots
   \item[\textbf{Ranking}] - Best Friend, Second Best Friend\dots
   \item[\textbf{Type}] - Friend, Relative, Co-worker (Often represented with different edge colors)  
@@ -71,12 +98,14 @@ Nodes and Edges can also have any combination of various attributes (Ribeiro 202
   \item[\textbf{Type}] - Nationality, Age, Sex (Often represented with different node colors)
 \end{description}
 \bigskip
-In the most common definition of a graph $G(V, E)$, there is a set $V$ of nodes/vertices/points, and set of edges $E$ such that \\$E \subseteq \{\{x, y\} | x, y \in V \text{ and } x \neq y\}$ (Bender and Williamson 7). 
-Various modifications can be applied to this definition to create different types of graphs. 
-For example, directed graphs, in which edges have orientation to and from certain nodes, have different definitions of edges $E$ compared to undirected graphs, which follow the definition above. 
-The direction of edges in a directed graph can represent a variety of phenomenon. 
-For example, in a network graph of a road system, the direction of edges can indicate one-way and two-way access between two roads. If one was mapping phone calls between individuals, 
-the direction of edges can establish who is calling and who is receiving.  
+
+Additionally, there is a set of terms used to describe the number of edges originating from a given node.
+
+\bigskip
+
+\textbf{Definition 2:} The \textbf{degree} of a give node is the total number of outgoing or incoming edges incident on it. 
+The degree can be further separated into \textbf{outdegree}, the number of edges originating from the node, and \textbf{indegree},
+the number of edges that terminate at the node.
 
 \subsection{Adjacency Matrices}
 We will define adjacency matrices, which are common algebraic representations of graphs in Graph Theory (Biggs 7).
@@ -85,9 +114,9 @@ These matrices show which nodes $v \in V$ are adjacent, or connected, to each ot
 
 \bigskip
 
-\textbf{Definition 1:} The adjacency matrix of a network is the $n \times n$ matrix $A$ whose entries $a_{ij}$ are given by
+\textbf{Definition 2:} The \textbf{adjacency matrix} of a network is the $n \times n$ matrix $A$ whose entries $a_{i,j}$ are given by
 \[   
-a_{ij} = 
+a_{i,j} = 
      \begin{cases}
        1 & \text{if node } v_i \text{ and node } v_j \text{ are adjacent, or connected by an edge} \\
        0 & \text{otherwise} \\
@@ -96,14 +125,14 @@ a_{ij} =
 
 \bigskip
 
-An example adjacency matrix is shown here:
+An example graph, along with its adjacency matrix, is shown here:
 
 \bigskip
 
 \noindent\begin{minipage}{.5\textwidth}
 \centering
 \includegraphics[scale=0.4]{"s3graph.pdf"}
-\captionof{figure}{A graph with three nodes}
+\captionof{figure}{Graph $G_1$ with three nodes}
 \label{fig:fig1}            
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
@@ -116,22 +145,27 @@ $\begin{bmatrix}
 \end{bmatrix}$
 \vspace{1.1cm}
 
-\captionof{figure}{Associated adjacency matrix}
+\captionof{figure}{Adjacency matrix $A_1$}
 \label{fig:fig2}            
 \end{minipage}
 
 \bigskip
 
-Notice how all diagonal entries are $0$ as each node is not connected with itself, 
-and all non-diagonal entries are $1$ as each node is connected to every other node.
-A more complex example is shown below
+The graph $G_1$ has three nodes, with $V = \{ v_1, v_2, v_3\}$.
+Each column and row in the adjacency matrix corresponds to a node, so column $1$ and row $1$ correspond to $v_1$, and so on.
+As $v_1$ is adjacent (connected) to $v_2$ and $v_3$, entries $a_{1,2}$ and $a_{1,3}$ in adjacency matrix $A_1$ have entry $1$. 
+A similar process applies for nodes $v_2$ and $v_3$. 
+Notice how all diagonal entries are $0$ as each node is not connected with itself.
+
+\bigskip 
+\noindent A more complex example is shown below:
 
 \bigskip
 
 \noindent\begin{minipage}{.5\textwidth}
 \centering
 \includegraphics[scale=0.4]{s4graph.drawio.pdf}
-\captionof{figure}{A graph with four nodes}
+\captionof{figure}{Graph $G_2$ with four nodes}
 \label{fig:fig3}            
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
@@ -145,36 +179,120 @@ A more complex example is shown below
 \end{bmatrix}$
 \vspace{0.88cm}
 
-\captionof{figure}{Associated adjacency matrix}
+\captionof{figure}{Adjacency matrix $A_2$}
 \label{fig:fig4}            
 \end{minipage}
 
 \bigskip
 
-Adjacency matrices can be easily used to construct graphs (both directed and undirected) and vice versa.
-We can note a few characteristics of adjacency matrices. Firstly, for undirected graphs, the adjacency matrix will be symmetric. 
-This is because if two nodes are connected, then both $a_{ij}$ entries in the matrix will be $1$ as direction doesn't matter, and $0$ otherwise if they are not connected.
-On the other hand, for directed graphs, adjacency matrices are not necessarily symmetric. 
-As the $a_{ij}$ entry will only be $1$ if there exists an edge from $i$ to $j$, if there is not a edge going in reverse then the "symmetric" value in the matrix will have a value of $0$.
-Usually, the diagonal values of an adjacency matrix will all have the value $0$, as most graphs will not have nodes that are connected with themselves.
+\noindent Notice in this example that there is no connection between nodes $v_1, v_4$, and $v_2, v_3$ and thus the associated entries in the adjacency matrix are $0$.
 
-Adjacency matrices become more complicated in the environment of community networks. 
-Instead of using $1$ to represent the presence of a edge between two nodes in the matrix, the nonzero value can be greater or less than $1$ to represent the weight of edge.
-In community networks, this weight represents how close two agents relate to or interact with each other, and is critical in community detection algorithms, which will be elaborated on below (Porter 1086).    
-
-\bigskip
-
-An example adjacency matrix along with its associated graph is shown here:
+\bigskip 
+A few generalizations can be made. The first is that by construction of the adjacency matrix, they will always be square matrices.
+Furthermore, the dimensions of the $n \times n$ matrix are that $|V| = n$, as there is a column and row for each node $v \in V$.
+In the context of community network graphs, which we are representing in this paper, connections between an node and itself are often omitted for sake of clarity and/or insignificance to the study.
+Thus, the diagonal of our adjacency matrices will always be zero. Additionally, these matrices will always be symmetric, as connections (relationships) between nodes are symmetric.
 
 \bigskip 
 
+The complexity of adjacency matrices increases with the presence of weighted graphs and directed graphs which change the aforementioned properties and definitions. 
+Although these modifications are significant to real-world studies, they are beyond the scope of this project, which will focus on unweighted, undirected graphs.
+
+
+\bigskip 
+
+
+\subsection{Degree Matrices}
+
 \bigskip
+
+While it is important to consider which nodes in a graph are connected through adjacency matrices, another important metric, especially for community detection, is how many connections a particular node has.
+This is where degree matrices come in, which represent how many edges are connected to a particular node $v_i \in V$, or essentially how many adjacent nodes $v_i$ has (Chung, Lu, Vu 100).
+
+\bigskip 
+
+\textbf{Definition 4:} The degree matrix of a network is the $n \times n$ matrix $D$ whose entries $d_{i,j}$ are given by
+\[   
+d_{i,j} = 
+     \begin{cases}
+       \text{deg} $(v_i)$ & \text{if } i = j \\
+       0 & \text{otherwise} \\
+     \end{cases}
+\]
+In this case, deg$(v_i)$ is the total number of edges that are connected to the node $v_i$, per Definition (2) from earlier.
+
+\bigskip 
+
+An example graph, along with its degree matrix, is shown here:
+
+\bigskip
+
+\noindent\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.4]{s4graph.drawio.pdf}
+\captionof{figure}{Graph $G_2$ with four nodes}
+\label{fig:fig7}            
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\vspace{1cm}
+ $\begin{bmatrix}
+2 & 0 & 0 & 0\\
+0 & 2 & 0 & 0\\
+0 & 0 & 2 & 0\\
+0 & 0 & 0 & 2
+\end{bmatrix}$
+\vspace{0.88cm}
+
+\captionof{figure}{Degree matrix $D_2$}
+\label{fig:fig8}            
+\end{minipage}
+
+\bigskip
+
+Notice how in the graph, each node $v\in V$ has exactly two connections and thus every entry $d_{i, j}$ along the diagonal has entry $2$.
+
+
+\bigskip
+
+\noindent A more complex example is shown below.
+
+\bigskip
+
+\noindent\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.4]{s6graph.drawio.pdf}
+\captionof{figure}{Graph $G_3$ with six nodes}
+\label{fig:fig5}            
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\vspace{0.5cm}
+$\begin{bmatrix}
+2 & 0 & 0 & 0 & 0 & 0\\
+0 & 3 & 0 & 0 & 0 & 0\\
+0 & 0 & 2 & 0 & 0 & 0\\
+0 & 0 & 0 & 3 & 0 & 0\\
+0 & 0 & 0 & 0 & 3 & 0\\
+0 & 0 & 0 & 0 & 0 & 1
+\end{bmatrix}$
+\vspace{0.5cm}
+
+\captionof{figure}{Degree matrix $D_3$}
+\label{fig:fig6}            
+\end{minipage}
+
+\bigskip
+
+
+
+\bigskip 
 
 \section{Community Detection}
 
 \subsection{What is Community Detection?}
 
-Community Detection is the process by which researchers can identify groups within a network.
+Community Detection is the process by which researchers can identify groups within a network in which individuals' membership in particular cliques are yet to be ascertained. 
 Community Detection is performed by researchers to map out the relationships between isolated nodes, members, or objects within the community. 
 By gathering and ordering network members by the strength of their relationships to each other one can discover communities\textemdash otherwise known as groups, clusters, cohesive subgroups, or modules. 
 This information can yield valuable insights. For example, community detection can reveal the key figures and leaders within a group, around which other members gather.
@@ -235,6 +353,10 @@ We will proceed to generate a directed graph with the use of this data and the C
 \bigskip
 
 \noindent "Two Decades of Network Science: as seen through the co-authorship network of network scientists" by Roland Molontay and Marcell Nagy
+
+\bigskip 
+
+\noindent "Spectra of random graphs with given expected degrees" by Fan Chung, Linyuan Lu, and Van Vu
 
 
 
