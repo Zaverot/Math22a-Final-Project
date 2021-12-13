@@ -10,7 +10,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \DeclareMathOperator{\Tr}{Tr}
 
-\title{Math22 Final Project}
+\title{Community Detection and Linear Algebra}
 \date{Fall 2021}
 \author{Andy Li\\ \texttt{andy\_li@college.harvard.edu} \and Ethan Tran\\ \texttt{etran@college.harvard.edu}}
 
@@ -19,6 +19,36 @@
 \maketitle
 
 \pagebreak
+
+\begin{center}
+ {\huge Cover Letter}
+\end{center}
+ 
+ \bigskip 
+ 
+We, authors of this project, Andy Li and Ethan Tran, would like to graciously thank Kevin Lin, Aris Zhu, Zoe Cooper, and Professor Dusty Grundmeier for their articulate and constructive advice on how to improve our draft. 
+Clarity of ideas, additional examples, and more complete definitions were the main areas to refine in our draft. 
+To accomplish this, we vastly improved each of our definitions with more formal mathematical notation and diagrams wherever possible, especially for definitions such as 1, 3, 6 which are major components of our project. 
+Several of our student feedback comments expressed confusion with the idea of networks and communities. 
+We worked to resolve this confusion by adding additional explanations for both using information from the Ribiero presentation. 
+Historical background for the study of social network's using Milgram's 1967 "Small World" thought experiment was added as well as this concept is fundamental to understanding the field and helps establish our motivating question within an existing academic endeavor. 
+We had many comments regarding a need for visualizations of our definitions, prompting us to add graphs, matrices, and other examples below our definitions. 
+We have also had comments regarding the need for refined citations, which were rectified by a thorough rewriting of in-text and bibliography citations to make them adhere to a consistent Chicago, author-date style. We also include page numbers in our in-text citations to increase clarity of source. 
+Our guiding problem was edited to more closely resemble a practical application of community detection techniques (ie. the analysis of a hypothetically plausible real-life group made up of Harvard Students). 
+We believe that this will serve as a more concrete basis off which we can launch our paper, rather than our previous, more abstract introduction, which primarily focused on the definitions of a community. 
+We have also fixed several instances of inconsistent mathematic notation, particular in our discussion of the partitioning function used to calculate $s$. 
+Then we retooled our definition of the Null Model Matrix $P$ to use more specific mathmatic terminology and eliminate confusion surrounding how it is derived. 
+We also added a new definition 9 for trace, which is used in our immediately preceding definition and discussion.
+Once again, we thank all of our readers for their time and insight, and hope that our paper is an interesting introduction to community detection! 
+
+
+\bigskip
+
+
+ 
+ \bigskip 
+ 
+\pagebreak 
 
 \tableofcontents
 
@@ -38,7 +68,7 @@ How might we answer these questions? One approach would be to analyze this group
 Networks are a common graph structure in mathematics with vertices connected by edges, usually with the purpose of visualizing relationships between objects.
 The use of network graphs have been extended into other fields, and this project will focus on the use of networks in sociology.
 Here, networks have nodes that represent agents, which are connected by links (edges) that signify some social interaction or tie between the two agents.
-Further detail comes in the form of node degrees (number of connections) and strength (weight of connections) to represent networks (Porter, 1082). 
+Further detail comes in the form of node degrees (number of connections) and strength (weight of connections) to represent networks (Porter 2009, 1082). 
  
 A large component of networks lies in communities, which are densely connected subgroups of nodes that in the context of sociology represent extensive human interaction.
 These communities are discovered through community detection algorithms, which have important real world uses such connecting people with common interests over social media
@@ -51,8 +81,8 @@ How does linear algebra assist in community detection and community network grap
 \subsection{What is Network Science?}
 The academic study of networks is often referred to as \textbf{Network Science}. This field was born from what is known as the "Small World Problem,"
 discussed in such landmark papers as Stanley Milgram's 1967 thought experiment of the same name. This problem is best represented by the following question:
-"Given any two people in the world, person X and person Z, how many intermediate acquaintance links are required before X and Z are connected?" (Milgram, 1967). This experiment has been
-pondered extensively, and even carried out by multiple universities, as can be seen in Columbia University's "An Experimental Study of Search in Global Social Networks" (Ribiero 2020). In this experiment,
+"Given any two people in the world, person X and person Z, how many intermediate acquaintance links are required before X and Z are connected?" (Milgram 1967, 2). This experiment has been
+pondered extensively, and even carried out by multiple universities, as can be seen in Columbia University's "An Experimental Study of Search in Global Social Networks" (Ribiero 2020, 9). In this experiment,
 searchers tasked around 60,000 individuals with contacting one of 18 individuals from 13 different countries by forwarding a single email to acquaintances. Analyzing the path these emails took,
 these Columbia researchers were able to map out an extensive network of interconnected individuals. This is Network Science\textemdash the science of identifying the structure of networks and extrapolating information
 from them.
@@ -73,20 +103,46 @@ networks can be represented with mathematical \textbf{Graph Theory} and analyzed
 \section{Graph Theory}
 
 \subsection{What is Graph Theory?}
-Graph theory is the study of \textbf{Graphs}, which are the mathematical representations of the real systems referred to as "networks." A more formal definition is given below:
+Graph theory is the study of \textbf{Graphs}, which are the mathematical representations of the real systems referred to as "networks." 
+In this paper, the terms graphs and networks are interchangeable as we are using mathematical graphs to model networks. 
+Thus, definitions that apply to graphs will also apply to networks. 
+A more formal definition is given below: 
 
 \bigskip
 
-\noindent \textbf{Definition 1:} A \textbf{graph} $G(V, E)$ has two parameters, $V$ and $E$. 
+\noindent \textbf{Definition 1:} A \textbf{graph} $G$, usually denoted as $G(V, E)$, has two parameters, $V$ and $E$. 
 
 \indent \begin{description}
-  \item[\textbf{$V$}] - The set of all vertices, also known as \textbf{nodes}. Nodes represent individual members of a network\textemdash people, roads, products, websites, objects in a piece of software\textemdash which will also be referred to in this paper as agents of a network.
+  \item[\textbf{$V$}] - The set of all vertices, also known as \textbf{nodes}. 
   \item[\textbf{$E$}] - The set of all \textbf{edges}, which connect vertices in the graph. 
 \end{description}
 
+An example graph is shown here:
+
 \bigskip
 
-\noindent Nodes and Edges can also have any combination of various attributes (Ribeiro 2020). Some examples for edges are:
+\noindent\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.4]{"egraph.drawio.pdf"}
+\captionof{figure}{Graph $G$ with four nodes}
+\label{fig:fig21}            
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+
+\begin{description}
+  \item[\textbf{$V$}] - Set of nodes given by $\{1, 2, 3, 4\}$
+  \item[\textbf{$E$}] - Set of all edges given \\by $\{(1, 2), (1, 3), (2, 3), (3, 4)\}$
+\end{description}
+
+
+\label{fig:fig22}            
+\end{minipage}
+
+\bigskip
+
+\noindent Nodes represent individual members of a network\textemdash people, roads, products, websites, objects in a piece of software\textemdash which will also be referred to in this paper as agents of a network. 
+Nodes and Edges can also have any combination of various attributes (Ribeiro 2020, 64-65). Some examples for edges are:
 
 \bigskip
 \indent \begin{description}
@@ -104,18 +160,22 @@ Graph theory is the study of \textbf{Graphs}, which are the mathematical represe
 \end{description}
 \bigskip
 
-Additionally, there is a set of terms used to describe the number of edges originating from a given node.
+Additionally, there is a set of terms used to describe the number of edges originating from a given node (Ribeiro 2020, 67).
 
 \bigskip
 
-\textbf{Definition 2:} The \textbf{degree} of a give node is the total number of outgoing or incoming edges incident on it. 
-The degree can be further separated into \textbf{outdegree}, the number of edges originating from the node, and \textbf{indegree},
-the number of edges that terminate at the node.
+\textbf{Definition 2:} The \textbf{degree} of a given node is the total number of outgoing or incoming edges incident on it. 
+In directed graphs, the degree can be further separated into \textbf{outdegree}, the number of edges originating from the node (start of the edge directed towards the target node), and \textbf{indegree},
+the number of edges that terminate at the node (end of the edge directed from the initial node).
+
+\bigskip
 
 \subsection{Adjacency Matrices}
-We will define adjacency matrices, which are common algebraic representations of graphs in Graph Theory (Biggs 7).
+We will define adjacency matrices, which are common algebraic representations of graphs in Graph Theory (Biggs 2010, 7).
 Recall from earlier that a graph $G$ has a set of vertices or nodes $V$, and a set of edges $E$ to connect them.
-These matrices show which nodes $v \in V$ are adjacent, or connected, to each other.
+These matrices show which nodes $v \in V$ are adjacent, or connected, to each other. 
+Each node $v$ will have some distinct assignment such that node $v_i$ corresponds to a row and column $i$ in the adjacency matrix. 
+The ordering of these notations is insignificant, as the assignments only serve to distinguish nodes from each other and the adjancency matrix tracks which nodes are adjacent. 
 
 \bigskip
 
@@ -196,7 +256,8 @@ Notice how all diagonal entries are $0$ as each node is not connected with itsel
 A few generalizations can be made. The first is that by construction of the adjacency matrix, they will always be square matrices.
 Furthermore, the dimensions of the $n \times n$ matrix are that $|V| = n$, as there is a column and row for each node $v \in V$.
 In the context of community network graphs, which we are representing in this paper, connections between an node and itself are often omitted for sake of clarity and/or insignificance to the study.
-Thus, the diagonal of our adjacency matrices will always be zero. Additionally, these matrices will always be symmetric, as connections (relationships) between nodes are symmetric.
+Thus, the diagonal of our adjacency matrices will always be zero, matricies of this type are referred to as being "hollow". 
+Additionally, these matrices will always be symmetric, as connections (relationships) between nodes are symmetric, meaning for a given adjacency matrix $A$, the entries $a_{i,j} = a_{j,i}$.
 
 \bigskip 
 
@@ -212,7 +273,7 @@ Although these modifications are significant to real-world studies, they are bey
 \bigskip
 
 While it is important to consider which nodes in a graph are connected through adjacency matrices, another important metric, especially for community detection, is how many connections a particular node has.
-This is where degree matrices come in, which represent how many edges are connected to a particular node $v_i \in V$, or essentially how many adjacent nodes $v_i$ has (Chung, Lu, Vu 100).
+This is where degree matrices come in, which represent how many edges are connected to a particular node $v_i \in V$, or essentially how many adjacent nodes $v_i$ has (Chung, Lu, and Vu, 2003, 100).
 
 \bigskip 
 
@@ -299,7 +360,11 @@ Every entry $d_{i,i}$ along the diagonal of the degree matrix of a network is gi
 \end{lemma}
 
 \begin{proof}
-Assume that we have some network with corresponding adjacency matrix $A$. By definition of adjacency matrix, each row $i$ contains a series of entries ($0$ or $1$) indicating whether or not the node $v_i$ is connected to the node $v_j$ represented in column $j$. As each entry of $1$ represents an edge attached to the node $v_i$, summing all the entries in the row through $\sum_j$ gives the degree of $v_i$. Thus, $d_{i,i} = \sum_j a_{i,j}$.
+Assume that we have some network with corresponding adjacency matrix $A$. 
+By definition of adjacency matrix, each row $i$ contains a series of entries ($0$ or $1$) indicating whether or not the node $v_i$ is connected to the node $v_j$ represented in column $j$. 
+This means that the degree $k_i$ of a node $v_i$ to be $ k_{i} = \sum_j A_{i,j} $.
+As each entry of $1$ represents an edge attached to the node $v_i$, summing all the entries in the row through $\sum_j$ gives the degree of $v_i$. 
+Thus, $d_{i,i} = \sum_j a_{i,j}$.
 
 \end{proof}
 
@@ -312,14 +377,14 @@ Assume that we have some network with corresponding adjacency matrix $A$. By def
 \subsection{What is Community Detection?}
 
 Community Detection is the process by which researchers can identify groups within a network in which individuals' membership in particular cliques are yet to be ascertained. 
-Community Detection is performed by researchers to map out the relationships between isolated nodes, members, or objects within the community. 
-By gathering and ordering network members by the strength of their relationships to each other one can discover communities\textemdash otherwise known as groups, clusters, cohesive subgroups, or modules. 
+Community Detection is performed by researchers to map out the relationships between isolated nodes, members, or objects within the community (Aggarwal et al. 2017, 5). 
+By gathering and ordering network members by the strength of their relationships to each other one can discover communities\textemdash otherwise known as groups, clusters, cohesive subgroups, or modules (Aggarwal et al. 2017, 4). 
 This information can yield valuable insights. For example, community detection can reveal the key figures and leaders within a group, around which other members gather.
-The results of community detection are often represented through graphs of nodes and edges, and are generated through the application of algorithms to networks as represented by adjacency matrices.
+The results of community detection are often represented through graphs of nodes and edges, and are generated through the application of algorithms to networks as represented by adjacency matrices (Aggarwal et al. 2017, 6-12).
 
 \subsection{Laplacian Matrices}
 
-A \textbf{Laplacian Matrix} is a more complex graph representation  which is used to find many useful properties of the graph. More importantly, Laplacian graphs are critical to our community detection algorithm.
+A \textbf{Laplacian Matrix} is a more complex graph representation which is used to find many useful properties of the graph (Weisstein 2021). More importantly, Laplacian graphs are critical to our community detection algorithm.
 
 \bigskip 
 
@@ -408,15 +473,16 @@ Thus, for the purposes of this paper, we will focus on a more effective communit
 \bigskip 
 
 \section{Community Detection Algorithm based \\ on Modularity Matrices}
-This algorithm tries to find densely connected subgraphs in a graph by calculating the leading non-negative eigenvector of the modularity matrix of the graph (Chandal, Kabre, Aggarwal 66). 
+This algorithm tries to find densely connected subgraphs in a graph by calculating the leading non-negative eigenvector of the modularity matrix of the graph (Aggarwal et al. 2017, 66). 
 
 
 \subsection{The Modularity Matrix}
-When finding communities within a given network, it is important to note that nodes within communities should have more links between themselves than the average number of edges between any two nodes in the network. 
+When finding communities within a given network, or graph, it is important to note that nodes within communities should have more links between themselves than the average number of edges between any two nodes in the network. 
 This is because communities, by definition, have nodes that are more intra-connected (within the community) rather than inter-connected (between communities).
 
-This concept is known as modularity, which measures the strength of division of a network into communities (Newman 103). 
-Graphs with high modularity have stronger and more distinct communities.
+This concept is known as modularity, which measures the strength of division of a network into communities (Newman 2006, 103). 
+Graphs with high modularity have stronger and more distinct communities. 
+For simplicity in our case, we will consider modularity as dividing a network into two communities.
 
 \bigskip
 
@@ -425,19 +491,47 @@ Graphs with high modularity have stronger and more distinct communities.
 \bigskip
 
 \indent $Q = m - P$ where $m$ is the total number of edges within the network and $P$ is an $n \times n$ "null model" matrix that gives the expected number of edges between any two vertices. 
+  Q represents the fraction of edges that fall within each of community 1 or 2, minus the expected number of edges within each of community 1 or 2 (Newman 2006, 103).
+
+\bigskip 
+
+\noindent Thus the larger the modularity $Q$, the more that a graph is divided into two communities. 
+An example of this concept is shown below:
+
+\bigskip
+
+\noindent\begin{minipage}{.5\textwidth}
+\centering
+\includegraphics[scale=0.4]{hqgraph.drawio.pdf}
+\captionof{figure}{A network with high \\modularity $Q$}
+\label{fig:fig23}            
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+
+\includegraphics[scale=0.4]{lqgraph.drawio.pdf}
+\captionof{figure}{A network with low \\modularity $Q$}
+
+
+\label{fig:fig24}            
+\end{minipage}
 
 \bigskip
 
 \textbf{Definition 7:} The \textbf{null model} matrix $P$ is a matrix created for the sake of comparison with another matrix, most often the adjacency matrix $A$. 
-The null model matrix follows the same basic constraints as $A$, meaning that $P$ can be assumed to be both symmetric (ie. $P = P^T$) and hollow (ie. $P_{i,i} = 0$). 
-$P$ differs from $A$ in that its edges are distributed uniformly at random across its vertices using a Uniform PDF. 
-The sum of the entries of $P$ is equal to the sum of the entries in $A$, meaning
+Essentially, $P$ is a theoretical or "ideal" adjacency matrix for a graph $G'$, which is derived from a graph $G$ that has as its adjacency matrix $A$. 
+$G'$ has the same set of vertices $V$ as $G$, but its set of edges $E'$ are distributed randomly across its nodes $V$ using a uniform probability distribution rather than between set vertices in $G$.   
+
+\bigskip 
+
+$P$ follows the same basic constraints as $A$, meaning that $P$ can be assumed to be both symmetric (ie. $P = P^T$) and hollow (ie. $P_{i,i} = 0$). 
+The sum of the entries of $P$ is equal to the sum of the entries in $A$, meaning:
 
 $$\sum P_{i,j} = \sum A_{i,j}$$
 
 \bigskip
 
-Secondly, $P$ must have the same degree distribution as the real world network, meaning,
+Secondly, $P$ must have the same degree distribution as the real world network (adjacency matrix $A$), meaning:
 
 \bigskip
 
@@ -446,7 +540,7 @@ $$\sum P_{ij} = k_{i}$$
 
 \bigskip
 
-where $k_{i}$, the degree of vertex $i$ is calculated using
+where $k_{i}$, the degree of vertex $i$ is calculated using:
 
 \bigskip
 
@@ -461,18 +555,18 @@ which produces the most accurate communities.
 \bigskip
 
 \subsection{Calculating Modularity}
-Given $P_{i,j}$, we can define a formula for modularity $Q$ below (Per source [things]):
+Given $P_{i,j}$, we can define a formula for modularity $Q$ below (Newman 2010, 5):
 
 $$ Q = \dfrac{1}{2m}\sum_{ij} [A_{i,j} - P_{i,j}]\delta (g_i, g_j) $$ 
 
 $A_{i,j}$ gives the actual number of edges between vertices $v_i$ and $v_j$ per definition of the adjacency matrix.
 As defined earlier, $P_{i,j}$ is the expected number of edges. 
 Let $m$ be the total number of e  dges in the graph, given by $m = |E|$. 
-We can define $g_i$ to be the community to which vertex $i$ belongs, which is important when used in conjunction with the Kronecker Delta function $\delta_{i,j}$.
+We can define $g_i$ to be the community (tightly connected group of nodes that represents a real life cluster of people, ideas, etc) to which vertex $i$ belongs, which is important when used in conjunction with the Kronecker Delta function $\delta_{i,j}$.
 
 \bigskip
 
-\textbf{Definition 8:} The Kronecker Delta function $\delta_{i, j}$:  
+\textbf{Definition 8:} The Kronecker Delta function $\delta_{i, j}$ (Newman 2010:7):  
 \[   
 \delta_{i,j} = 
      \begin{cases}
@@ -490,10 +584,6 @@ The quantity $\frac{1}{2m}$ is conventional and has no effect in the maximizatio
 
 \noindent Thus, the only component we need to further define and calculate is the null model matrix $P$.
 
-\bigskip 
-
-\textbf{Definition 9:} We will define the degree of a node $v_i$ to be:  
-$$ k_{i} = \sum_j A_{i,j} $$
 
 \bigskip
 
@@ -534,7 +624,7 @@ Let us define an index vector $\vec{s}$ that contains $n$ elements, with each en
 Using this index vector, we can update our Kronecker delta function $\delta$ using the entries of $\vec{s}$. 
 Let $s_i$ be the entry in $\vec{s}$ corresponding to the $v_i$th node. We have:
 
-$$ \frac{1}{2} (s_i s_j + 1) $$
+$$\delta (g_i, g_j) = \dfrac{(s_i s_j + 1)}{2}  $$
 
 \bigskip 
 
@@ -552,40 +642,48 @@ using a simplification from equation $\sum P_{i,j} = \sum A_{i,j}$.
 
 We can convert this into a matrix form as:
 
-$$ Q = \dfrac{1}{4m}s^T B S $$
+$$ Q = \dfrac{1}{4m}s^T B s $$
 
 in which $\vec{s}$ is our index vector and $B$ is our modularity matrix, where $B = A - P$.
 
 \bigskip
 
 Unlike in standard spectral partitioning, which utilizes the Laplacian matrix, our algorithm uses the modularity matrix $B$.
-As the eigenvalues of $B$ are not all necessarily all of of one sign, we must constrain the entries $\vec{s}_1 \dots \vec{s}_n$ of $\vec{s}$, 
-which is a linear combination of the normalized eigenvectors $u_i$ of $B$, to $\pm 1$ by way of this function:
+As the eigenvalues of $B$ are not all necessarily all of of one sign, we must constrain the entries $s_1 \dots s_n$ of $\vec{s}$, 
+which is a linear combination of the normalized eigenvectors $u$ of $B$. 
+Each entry $s_i \in \vec{s}$ is calculated from entry $u_i \in u$ as follows:
 
 \bigskip
 
 \indent \[s_i = 
   \begin{cases}
-    1 & \text{if } u^{(1)}_{i} \geq 0, \\
-    -1 & \text{if } u^{(1)}_{i} < 0.   
+    1 & \text{if } u_{i} \geq 0, \\
+    -1 & \text{if } u_{i} < 0.   
   \end{cases} \]
 
 \bigskip
 
-From the definition of our modularity matrix $B$, the elements of the leading eigenvector (corresponding to largest eigenvalue) measure how firmly each vertex belongs to its assigned community.
-This is because the leading eigenvector has the highest magnitude entries, which is important for the above constraining of the entries of $S$ to $1$ and $-1$.
+From the definition of our modularity matrix $B$, the elements of the leading eigenvector (corresponding to largest eigenvalue)
+measure how firmly each vertex belongs to one of the two partitions being created during this given application of the spectral partitioning process (Newman 2010, 7).
+We select the leading eigenvector, which has the most positive magnitude, as we attempting to maximize the modularity of the entries within our partition groups, and as shown in our definition for $Q$, 
+modularity is maximized when the entries of $B$ are maximized (Newman 2010, 7).
 
 For most community networks, however, we want to divide the network into more than just $2$ subcommunities.
 This is more complex, as our equation for modularity $Q$ from above can't be directly applied to the initial pair of partitioned communities.
-Thus, we need to find the increase in modularity of the graph when a community is divided. 
+Thus, we need to find the increase in modularity of the graph, $\Delta Q$, when a community is further divided using a variation of the formula.
+This means that we find the difference between the modularities of the network before and after dividing a community into a subcommunity. 
+
+\bigskip 
+
 Let us define $G$ to be the set of vertices in our community which we plan on dividing, and $n_G$ the total number of vertices in the community.
-We need a new index matrix $S' = n_G \times c$, which represents the division of community $G$ into $c$ subcommunities.
+To divide the community into $c$ subcommunities, we need a new index matrix $S'$ of dimensions $n_G \times c$.
 This means that $S'_{i,j} = 1$ if vertex $g_i \in G$ is in subcommunity $j$ and $S'_{i,j} = 0$ otherwise. 
 We can derive a new formula for the the change in modularity $\Delta Q$:
 
 \begin{equation} \label{eq1}
 \begin{split}
-\Delta Q & = \sum_{i, j \in G} \sum_{k=1}^{c} B_{i,j} S_{i,k} S_{j, k} - \sum_{i, j \in G} B_{i,j} \\
+\Delta Q & = Q_\text{ after subdivision } - Q_\text{ before subdivision } \\
+& = \sum_{i, j \in G} \sum_{k=1}^{c} B_{i,j} S_{i,k} S_{j, k} - \sum_{i, j \in G} B_{i,j} \\
  & = \sum_{k=1}^{c} \sum_{i, j \in G} [ B_{i, j} - \delta_{i, j} \sum_{l \in G} B_{i,l}]S_{i,k} S_{j, k} \\
  & = \Tr (S'^TB^{(G)}S')
 \end{split}
@@ -593,7 +691,11 @@ We can derive a new formula for the the change in modularity $\Delta Q$:
 
 \bigskip
 
-In particular, $\Tr (S'^TB^{(G)}S')$ is the trace of the matrix $(S'^TB^{(G)}S')$, which is the sum of the eigenvalues of $(S'^TB^{(G)}S')$.
+In particular, $\Tr (S'^TB^{(G)}S')$ is the trace of the matrix $(S'^TB^{(G)}S')$, which is defined as follows:
+
+\bigskip 
+
+\textbf{Definition 9:} The \textbf{trace} of a matrix $m$ is defined as the sum of the eigenvalues of the matrix $m$ (Weisstein 2021). In our formula, the trace notation is used a shorthand simplification as we are summing eigenvalues.
 
 \bigskip
 
@@ -607,7 +709,7 @@ By recursively applying this new formula, we can now separate networks into more
 
 \bigskip
 
-Putting these proofs and definitions together, we can finally form our community detection algorithm.
+Putting these proofs and definitions together, we can finally form our community detection algorithm (Newman 2010, 13-16).
 
 \subsection{The Community Detection Algorithm}
 
@@ -621,57 +723,60 @@ Putting these proofs and definitions together, we can finally form our community
   \item If $\Delta Q^{\prime} = 0$, then terminate the algorithm.
 \end{enumerate}
 
-\section{Sample Community Network}
-In this simple example, we have interviewed five people about who they eat with most frequently. 
-They will rank their peers from 1-4, with 1 representing the person they would be least likely to eat with and 4 representing the person they would most be likely to eat with. 
-On a five by five matrix, with zeroes or ones on the diagonal depending on if a person eats with themselves or not, we will convert these values to an adjacency matrix.
-This matrix will display the strength of connection according to how often they eat with someone.
-We will proceed to generate a directed graph with the use of this data and the CD Algorithm.
-
 \pagebreak
 \section{References}
 
 \bigskip
 
-\noindent “Communities in Networks” by Mason A. Porter, Jukka-Pekka Onnela, and Peter J. Mucha
-
-\bigskip 
-
-\noindent "An Introduction to Community Detection" by Lei Tang and Huan Liu
-
-\bigskip 
-
-\noindent "Community Detection Algorithms" by Thamindu Dilshan Jayawickrama
-
-\bigskip 
-
-\noindent "Algebraic Graph Theory" by Norman Biggs
-
-\bigskip 
-
-\noindent "Lists, Decisions and Graphs. With an Introduction to Probability" by Edward A. Bender and S. Gill Williamson
-
-\bigskip 
-
-\noindent "Community Structure Detection" by Amar Chandole, Ameya Kabre, and \linebreak Atishay Aggarwal
+\noindent Aggarwak, Atishay and Chandole, Amar and Kabre, Ameya. "Community Structure Detection." University of California at Los Angeles, 2017.
 
 \bigskip
 
-\noindent "An Introduction to Network Science" by Pedro Ribeiro
-
-\bigskip
-
-\noindent Milgram, S. "The small world problem." Psychol. Today 2, 60–67 (1967)
-
-\bigskip
-
-\noindent "Two Decades of Network Science: as seen through the co-authorship network of network scientists" by Roland Molontay and Marcell Nagy
+\noindent Biggs, Norman. "Algebraic Graph Theory: Second Edition." Cambridge University Press, 1993.
 
 \bigskip 
 
-\noindent "Spectra of random graphs with given expected degrees" by Fan Chung, Linyuan Lu, and Van Vu
+\noindent Bender, Edward A. and Williamson, S. Gill. "Lists, Decisions and Graphs. With an Introduction to Probability." University of California at San Diego, 2010.
 
+\bigskip 
 
+\noindent Chung, Fan and Lu, Linyuan and Vu, Van. "Spectra of random graphs with given expected degrees." University of Pennsylvania, 2003.
+
+\bigskip
+
+\noindent Jayawickrama, Thamindu Dilshan. "Community Detection Algorithms." Towards Data Science, 2021.
+
+\bigskip 
+
+\noindent Milgram, S. "The small world problem." Psychology Today, no. 2 (1967): 60–67.
+
+\bigskip
+
+\noindent Molontay, Roland and Nagy, Marcell. "Two Decades of Network Science: as seen through the co-authorship network of network scientists." Cornell University, 2020.
+
+\bigskip 
+
+\noindent Newman, M. E. J. "Modularity and Community Structure in Networks." PNAS, 2006.
+
+\bigskip
+
+\noindent Porter, Mason A. and Onnela, Jukka-Pekka and Mucha, Peter J. "Communities in Networks." Cornell University, 2009.
+
+\bigskip 
+
+\noindent Ribeiro, Pedro. "An Introduction to Network Science." Universidade Do Porto, 2020. 
+
+\bigskip
+
+\noindent Tang, Lei and Liu, Huan. "Social Media Analysis and Recommending Systems: An Introduction to Community Detection." Morgan and Claypool, 2010.
+
+\bigskip
+
+\noindent Weisstein, Eric W. "Laplacian Matrix." From MathWorld, 2021. Last accessed December 13, 2021, https://mathworld.wolfram.com/LaplacianMatrix.html.
+
+\bigskip
+
+\noindent Weisstein, Eric W. "Matrix Trace." From MathWorld, 2021. Last accessed December 13, 2021, https://mathworld.wolfram.com/MatrixTrace.html.
 
 %http://web.cs.ucla.edu/~yzsun/classes/2017Winter_CS249/Slides/Clustering1.pdf
 
